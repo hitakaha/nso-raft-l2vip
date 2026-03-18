@@ -103,18 +103,7 @@ sudo crontab -e
 **2. Add Schedule**:
 To run every 5 seconds, add the following entries:
 ```text
-* * * * * bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 5; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 10; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 15; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 20; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 25; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 30; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 35; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 40; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 45; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 50; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 55; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * for i in 0 5 10 15 20 25 30 35 40 45 50 55; do bash /root/nso-raft-l2vip/nso-raft-l2vip.sh & sleep 5; done
 ```
 
 ## Verification
