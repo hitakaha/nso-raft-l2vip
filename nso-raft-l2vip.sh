@@ -1,18 +1,24 @@
 #!/bin/sh
-# Configure L2 VIP for NSO RAFT servers
+# -----------------------------------------------------------------------------
+# Script: manage_nso_vip.sh
+# Description: Manages a Layer 2 Virtual IP (VIP) for Cisco NSO RAFT clusters.
+#              - If the node is the RAFT leader, it ensures the VIP is assigned.
+#              - If the node is NOT the leader, it ensures the VIP is removed.
+#
 # Prerequisites:
-# - install arping
-# - install NSO as system-install
+# - 'arping' utility must be installed.
+# - NSO must be installed as a system-install.
 #
-# How to use:
-# - Schedule this script to run, say every 5 sec, by cron
-#   following is example
-#
-NIC=ens160         # Interface to configure the VIP
-VIP=198.18.134.210 # Virtual IP for the RAFT cluster
-MASK=18            # network mask length
+# Usage: Schedule this script to run via cron (e.g., every 5 seconds).
+# -----------------------------------------------------------------------------
 
-# Capture the output of the ncs_cli command
+# --- Configuration ---
+NIC=ens160         # Network interface where the VIP will be managed
+VIP=198.18.134.210 # Virtual IP address for the RAFT cluster
+MASK=18            # Subnet mask length (CIDR notation)
+
+# --- Role Check ---
+# Query NSO CLI to determine the current HA RAFT role.
 OUTPUT=$(ncs_cli -u admin << EOF
 switch cli
 show ha-raft | include role
@@ -20,18 +26,35 @@ exit
 EOF
 )
 
-# Check if the command succeeded and output contains "leader"
+# Check if the CLI command succeeded and if the output identifies this node as the leader.
 if [ $? -eq 0 ] && echo "$OUTPUT" | grep -q "leader"; then
-    echo "Node is leader. Configuring VIP..."
     
-    # Assign the VIP to the interface (assuming a /24 subnet, adjust as needed)
-    ip addr add $VIP/$MASK dev $NIC
-    
-    # Send gratuitous ARP to update network switches
-    # -U: Unsolicited ARP, -c 3: send 3 packets, -I: interface
-    arping -U -c 3 -I $NIC $VIP
-    
-    echo "VIP $VIP configured and gratuitous ARP sent."
+    # --- Leader Logic ---
+    # Check if the VIP is already assigned to avoid redundant configuration.
+    if ip addr show dev "$NIC" | grep -q "$VIP"; then
+        echo "Status: Node is leader. VIP $VIP is already active. No action taken."
+    else
+        echo "Status: Node is leader but VIP $VIP is not assigned. Configuring..."
+        
+        # Assign the VIP to the interface.
+        ip addr add "$VIP/$MASK" dev "$NIC"
+        
+        # Send Gratuitous ARP (GARP) packets to update the ARP tables of neighboring switches.
+        # -U: Unsolicited ARP mode, -c 3: Send 3 packets, -I: Specify interface.
+        arping -U -c 3 -I "$NIC" "$VIP"
+        
+        echo "Success: VIP $VIP assigned and Gratuitous ARP sent."
+    fi
 else
-    echo "Node is not leader or command failed. No action taken."
+    # --- Non-Leader Logic ---
+    # If the node is not the leader (or NSO is down), ensure the VIP is not active on this host.
+    echo "Status: Node is not the leader or NSO service is unreachable."
+    
+    if ip addr show dev "$NIC" | grep -q "$VIP"; then
+        echo "Action: VIP $VIP detected on a non-leader node. Removing VIP to prevent IP conflict..."
+        ip addr del "$VIP/$MASK" dev "$NIC"
+        echo "Success: VIP $VIP has been removed."
+    else
+        echo "Status: VIP $VIP is not present. No cleanup required."
+    fi
 fi
