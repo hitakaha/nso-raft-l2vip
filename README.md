@@ -32,7 +32,7 @@ To maintain high availability, schedule this script to run periodically (e.g., e
    * * * * * sleep 45; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
    * * * * * sleep 50; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
    * * * * * sleep 55; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-   
+```
 
 
 
