@@ -12,7 +12,45 @@ Ensure the following dependencies are met on the target host:
 * **Permissions**: The user executing the script must have sufficient privileges to execute `arping` and interact with the NSO CLI.
 
 # How to Use
+## Clone the repository
 
+```
+git clone https://github.com/hitakaha/nso-raft-l2vip.git
+```
+## Update credentials
+Update credentials in nso-raft-l2vip.sh
+
+```
+# NSO RESTCONF details
+NSO_PORT="8080"
+USERNAME="admin"
+PASSWORD="admin"
+```
+
+# Pre-check
+1. Confirm RESTCONF works by following 
+
+```
+curl -u <username>:<password> http://localhost:8080/restconf/data/tailf-ncs-high-availability-raft:ha-raft/status/role" \
+  -H "Accept: application/yang-data+json
+```
+
+2. Confirm the RAFT state is available
+
+```
+curl -u <username>:<password> http://localhost:8080/restconf/data/tailf-ncs-high-availability-raft:ha-raft/status/role" \
+  -H "Accept: application/yang-data+json | jq -r '."tailf-ncs-high-availability-raft:role"'
+```
+
+3. Confirm the script runs on your machine, then output must be "leader" or "follower"
+
+```
+bash nso-raft-l2vip/nso-raft-l2vip.sh
+leader
+```
+
+
+# Schedule the script
 ## NSO Raft L2 VIP Scheduling on Ubuntu 25.04
 
 This guide provides two methods to execute the `/root/nso-raft-l2vip/nso-raft-l2vip.sh` script every 5 seconds on Ubuntu 25.04.
