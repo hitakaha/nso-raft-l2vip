@@ -8,6 +8,7 @@ Ensure the following dependencies are met on the target host:
 
 * **System Utility**: `arping` `curl` `jq` must be installed (e.g., `sudo apt install arping curl jq` or `sudo yum install iputils curl jq`).
 * **NSO Installation**: NSO must be installed as a `system-install` to ensure proper service management and permissions.
+* **RESTCONF**: RESTCONF must be enabled to localhost
 * **Permissions**: The user executing the script must have sufficient privileges to execute `arping` and interact with the NSO CLI.
 
 # How to Use
