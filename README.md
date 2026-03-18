@@ -6,7 +6,7 @@ This script automates the configuration of a Layer 2 Virtual IP (VIP) for Cisco 
 
 Ensure the following dependencies are met on the target host:
 
-* **System Utility**: `arping` must be installed (e.g., `sudo apt install arping` or `sudo yum install iputils`).
+* **System Utility**: `arping` `curl` `jq` must be installed (e.g., `sudo apt install arping curl jq` or `sudo yum install iputils curl jq`).
 * **NSO Installation**: NSO must be installed as a `system-install` to ensure proper service management and permissions.
 * **Permissions**: The user executing the script must have sufficient privileges to execute `arping` and interact with the NSO CLI.
 
