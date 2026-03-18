@@ -20,15 +20,17 @@ To maintain high availability, schedule this script to run periodically (e.g., e
 
 2. Add the following entry to execute the script every 5 seconds:
    ```cron
-   * * * * * /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 5; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 10; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 15; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 20; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 25; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 30; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 35; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 40; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 45; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 50; /usr/bin/python3 /path/to/your/script.py
-   * * * * * sleep 55; /usr/bin/python3 /path/to/your/script.py
+* * * * * bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 5; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 10; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 15; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 20; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 25; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 30; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 35; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 40; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 45; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 50; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+* * * * * sleep 55; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+
+
