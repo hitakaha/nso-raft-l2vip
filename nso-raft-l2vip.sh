@@ -30,7 +30,7 @@ if [ "$?" -eq 0 ] && [ "$ROLE" == "leader" ]; then
     else
         echo "Status: Node is leader but VIP $VIP is not assigned. Configuring..."
         ip addr add "$VIP/$MASK" dev "$NIC"
-        arping -U -c 3 -I "$NIC" "$VIP"
+        arping -U -c 3 -I "$NIC" -S "$VIP" "$VIP"
         echo "Success: VIP $VIP assigned and Gratuitous ARP sent."
     fi
 else
