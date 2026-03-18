@@ -20,17 +20,19 @@ To maintain high availability, schedule this script to run periodically (e.g., e
 
 2. Add the following entry to execute the script every 5 seconds:
    ```cron
-* * * * * bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 5; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 10; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 15; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 20; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 25; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 30; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 35; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 40; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 45; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 50; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
-* * * * * sleep 55; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 5; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 10; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 15; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 20; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 25; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 30; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 35; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 40; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 45; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 50; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   * * * * * sleep 55; bash /root/nso-raft-l2vip/nso-raft-l2vip.sh
+   
+
 
 
