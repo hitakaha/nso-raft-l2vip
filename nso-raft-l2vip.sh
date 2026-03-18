@@ -19,7 +19,7 @@ PASSWORD="admin"
 # We use -s for silent mode and -k to ignore SSL errors (if using self-signed certs).
 ROLE=$(curl -s -k -u "$USERNAME":"$PASSWORD" \
   "http://localhost:$NSO_PORT/restconf/data/tailf-ncs-high-availability-raft:ha-raft/status/role" \
-  -H "Accept: application/yang-data+json" | jq -r '."tailf-ncs:role"')
+  -H "Accept: application/yang-data+json" | jq -r '."tailf-ncs-high-availability-raft:role"')
 
 # Check if the API call succeeded and if the role is "leader"
 if [ "$?" -eq 0 ] && [ "$ROLE" == "leader" ]; then
